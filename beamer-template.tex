@@ -14,9 +14,9 @@
 \usetheme[compress]{MPIjast}
 
 
-\title[title in footline]{Toponym Resolution and Adaptive Context Features}
+\title[Toponym Resolution and Adaptive Context Features]{Toponym Resolution and Adaptive Context Features}
 \subtitle{}
-\author[name in footline]{Faraz Ahmad}
+\author[Faraz Ahmad]{Faraz Ahmad}
 \date{\today}
 \institute[MPI-Inf]{
 Max Planck Institute for Informatics\\
@@ -46,44 +46,28 @@ Saarland Informatics Campus\\
 \section[Introduction]{Introduction}
 
 %###############################################
-\subsection{Important things to understand}
 
-\frame{
-	\frametitle{Important things to understand}
-	
-	\begin{itemize}
-		\item Toponyms
-		\item Geotagging
-		\begin{itemize}
-			\item Toponym recognition
-			\item Toponym disambiguation
-		\end{itemize}
-		\item Context Free and Adaptive Context features 
-		\item Adaptive features - and their computation
-		\item Applications of Geotagging
-	\end{itemize}
-} % END OF FRAME
 %###############################################
 
 %----------------------------------------
 
 
 \subsection{Terminology}
-
-\frame{
-\frametitle{Terminology}
-
-\begin{itemize}
-\item Toponyms
-\item Geotagging
-\begin{itemize}
-	\item Toponym recognition
-	\item Toponym disambiguation
-\end{itemize}
-\item Difficulty in Geotagging
-\item Gazeteers
-\end{itemize}
-} % END OF FRAME
+%
+%\frame{
+%\frametitle{Terminology}
+%
+%\begin{itemize}
+%\item Toponyms
+%\item Geotagging
+%\begin{itemize}
+%	\item Toponym recognition
+%	\item Toponym disambiguation
+%\end{itemize}
+%\item Difficulty in Geotagging
+%\item Gazeteers
+%\end{itemize}
+%} % END OF FRAME
 
 %----------------------------------------
 
@@ -91,10 +75,10 @@ Saarland Informatics Campus\\
 \frame{
 \frametitle{Toponyms}
 \begin{block}{Toponyms}
-	Words in a document text/sentence that correspond to a location name are called toponyms.
+	Words in a document text that correspond to \textbf{location names} are called toponyms.
 \end{block}
 
-\begin{block}{refer to a populated place, such as: }
+\begin{block}{refer to a \textbf{populated place}, such as: }
 	\begin{itemize}
 		\item[(1)] Cities/Towns
 		\item[(2)] States/Provinces
@@ -110,8 +94,10 @@ Saarland Informatics Campus\\
 
 \begin{block}{Toponyms examples: }
 	\begin{itemize}
-		\item[(1)]  ``\underline{France} won the world cup in 1998."
-		\item[(2)] ``\underline{Birmingham}, a major city of \underline{West Midlands} is the second most populous city of \underline{England}, third most populous is \underline{Leeds}."
+		\item[(1)]  ``\underline{\textbf{France}} won the world cup in 1998."
+		\pause
+		\item[(2)] ``\underline{\textbf{Birmingham}}, a major city of \underline{\textbf{West Midlands}} is the second most populous city of \underline{\textbf{England}}, third most populous is \underline{\textbf{Leeds}}."
+		\pause
 	\end{itemize}
 \end{block}
 
@@ -143,7 +129,7 @@ Saarland Informatics Campus\\
 \frametitle{Geotagging}
 
 \begin{block}{Geotagging}
-	Geotagging means understanding the geographic content of a text document.
+	understanding the {geographic content} of a text document.
 \end{block}
 
 \begin{block}{is a two step process: }
@@ -163,11 +149,13 @@ Saarland Informatics Campus\\
 \begin{block}{sentence }
 	``France won the world cup in 1998."
 \end{block}
+\pause
 \begin{block}{step 1: detecting the toponyms}
 	``\underline{France} won the world cup in 1998."
 \end{block}
+\pause
 \begin{block}{step 2: grounding the detected toponyms}
-``\underline{France}(lat 46, long 2) won the world cup in 1998."
+``\underline{France} (lat 46, long 2) won the world cup in 1998."
 \end{block}
 
 \vfill
@@ -185,12 +173,11 @@ Saarland Informatics Campus\\
 	 
 	 
 	\begin{block}{Toponym recognition}
-		aims to find all the toponyms(location
+		\textbf{detect} all the \textbf{toponyms} (location
 		names) in text.
 	\end{block}
 	\begin{block}{Toponym resolution}
-		aims to resolve the ambiguity in toponyms as one location name can refer to multiple location names
-		in the world, so the aim of toponym resolution is to assign the correct lat/long value to a toponym.
+		\textbf{assign} the \textbf{correct lat/long value} to \textbf{toponyms}.
 	\end{block}
 	
 	\vfill
@@ -207,7 +194,7 @@ Saarland Informatics Campus\\
 		``\underline{France} won the world cup in 1998."
 	\end{block}
 	\begin{block}{step 2: grounding the detected toponyms = Toponym resolution}
-		``\underline{France}(lat 46, long 2) won the world cup in 1998."
+		``\underline{France} (lat 46, long 2) won the world cup in 1998."
 	\end{block}
 	
 	\vfill
@@ -226,7 +213,7 @@ Saarland Informatics Campus\\
 \end{block}
 
 \begin{block}{in toponym resolution}
-	need to understand document's content to ground a toponym to its correct lat/long value\textbf{(correct interpretation)}.
+	need to understand document's content to ground a toponym to its correct lat/long value \textbf{(correct interpretation)}.
 \end{block}
 
 
@@ -238,14 +225,21 @@ Saarland Informatics Campus\\
 \frame{
 	\frametitle{Difficulty in Geotagging - ambiguity}
 	
+	\begin{itemize}
+		\item geo/geo ambiguity
+		\item geo/non-geo ambiguity
+	\end{itemize}
+
+	\pause
+	
 	\begin{block}{geo/geo ambiguity}
-		An example for ambiguous geographic term can be \textbf{"Hyderabad"}, it is a city in Pakistan and India.
+		\textbf{"Hyderabad"}, it is a city in Pakistan and India.
 	\end{block}
 	
 	\pause
 	
 	\begin{block}{geo/non-geo ambiguity}
-		Another example for ambiguous geographic term can be \textbf{"Jordan"}, it is a name of a country and a person
+		\textbf{"Jordan"}, it is a name of a country and a person
 	\end{block}
 	
 	
@@ -259,7 +253,7 @@ Saarland Informatics Campus\\
 	\frametitle{Gazeteers}
 	
 	\begin{block}{Gazeteers}
-		Gazeteers are long lists of geographic locations with respective features such as lat/long values and usually type of location(city, state, country etc).
+		Gazeteers are long lists of geographic locations with respective features such as lat/long values and usually type of location (city, state, country etc).
 	\end{block}
 
 	\begin{block}{some examples of online available gazeteers}
@@ -280,12 +274,11 @@ Saarland Informatics Campus\\
 	\begin{block}{useful for}
 		\begin{itemize}
 			\item Toponym recognition (looking up)
-			\item getting features* of toponyms 
-			\item lat/long value of the toponym
+			\item getting features* of toponyms
 		\end{itemize}
 	\end{block}
 	
-	$\ast$ population, no. of interpretations, alternative names, location type
+	$\ast$ population, no. of interpretations, alternative names, location type, lat/long value of the toponym
 	
 	\begin{figure}
 		\includegraphics[width=\textwidth]{geonames.png} 
@@ -307,7 +300,7 @@ Saarland Informatics Campus\\
 	
 	\begin{itemize}
 		\item 14.8\% geographic queries in 2001 Excite search engine log
-		\item 13\% geographic queries(related to USA) in 3 months data of AOL search engine in 2006 
+		\item 13\% geographic queries (related to USA) in 3 months data of AOL search engine in 2006 
 	\end{itemize}
 	
 	
@@ -327,32 +320,84 @@ Saarland Informatics Campus\\
 \frame{
 \frametitle{NERD vs Geotagging}
 
-\begin{columns}
-	\begin{column}{.5\textwidth}
-			\alert{NERD}
-			\begin{itemize}
-				\item disambiguate all entities
-				\item uses knowledgebases to ground entities
-				\item ground = link to the correct knowledgebase entry about entity
-			\end{itemize}
-	\end{column}
-	\begin{column}{.5\textwidth}
-			\alert{Geotagging}
-			\begin{itemize}
-				\item disambiguate only toponyms
-				\item uses various features to ground toponyms
-				\item ground = assign correct lat/long value to the toponym
-			\end{itemize}
-	\end{column}
-\end{columns}
+\begin{table}[bt]
+	\begin{tabular}{|c|c|} \hline
+		\textbf{NERD}      & \textbf{Geotagging} \\ 
+		\hline
+		\uncover<2->{named entities} & \uncover<2->{only toponyms} \\
+		\uncover<3->{knowledge bases} & \uncover<3->{gazeteers} \\
+		\uncover<4->{ground = link} & \uncover<4->{ground = lat/long} \\
+		\uncover<5->{knowledgebases are general}  & \uncover<5->{gazeteers are specific} \\ 
+		\hline
+	\end{tabular}
+\end{table}
 
-\pause
+%\begin{columns}
+%	\begin{column}{.5\textwidth}
+%			\alert{NERD}
+%			\begin{itemize}
+%				\item disambiguate all entities
+%				\item uses knowledgebases to ground entities
+%				\item ground = link to the correct knowledgebase entry about entity
+%				\item knowledgebases are more general
+%			\end{itemize}
+%	\end{column}
+%	\begin{column}{.5\textwidth}
+%			\alert{Geotagging}
+%			\begin{itemize}
+%				\item disambiguate only toponyms
+%				\item uses various features to ground toponyms
+%				\item ground = assign correct lat/long value to the toponym
+%				\item gazeteers are more geographically focussed
+%				\item gazeteers have many toponyms
+%			\end{itemize}
+%	\end{column}
+%\end{columns}
 
-\begin{block}{Bottom line}
-	Geotagging deserves attention in its own right, and NERD cannot be used for it.
-\end{block}
+%\pause
+
+%\begin{block}{Bottom line}
+%	Geotagging deserves attention in its own right, and NERD cannot be used for it.
+%\end{block}
 
 \vfill
+} % END OF FRAME
+
+%----------------------------------------
+\subsection{NERD for doing Geotagging?}
+
+
+\frame{
+	\frametitle{NERD for doing Geotagging?}
+	
+	\begin{overprint}
+		\onslide<1>
+		\begin{figure}
+			\includegraphics[width=\textwidth]{aida.png} 
+			\caption{from AIDA Web Interface, \textit{Source: URL}}
+		\end{figure}
+		
+		\onslide<2>
+		\begin{figure}
+			\includegraphics[width=\textwidth]{aida1.png} 
+			\caption{from AIDA Web Interface, \textit{Source: URL}}
+		\end{figure}
+	
+		\onslide<3>
+		\begin{figure}
+			\includegraphics[width=\textwidth]{aida2.png} 
+			\caption{from AIDA Web Interface, \textit{Source: URL}}
+		\end{figure}
+	
+		\onslide<4>
+		\begin{figure}
+			\includegraphics[width=\textwidth]{ambi.png} 
+			\caption{from Ambiverse Entity Linking Demo, \textit{Source: URL}}
+		\end{figure}
+	
+	\end{overprint}
+	
+	\vfill
 } % END OF FRAME
 
 %----------------------------------------
@@ -400,13 +445,13 @@ Saarland Informatics Campus\\
 	\pause
 
 	\begin{block}{Context free features}
-		 do not depend on the context(window) of the toponym t being resolved; usually available from gazeteers
+		 do not depend on the context (window) of the toponym t being resolved; usually available from gazeteers
 	\end{block}
 
 	\pause
 	
 	\begin{block}{Adaptive context features}
-		depend on the context(window) around the toponym t being resolved; other toponyms in the window	around toponym t help in resolving it
+		depend on the context (window) around the toponym t being resolved; other toponyms in the window	around toponym t help in resolving it
 	\end{block}
 \vfill
 } % END OF FRAME
@@ -416,22 +461,36 @@ Saarland Informatics Campus\\
 \frame{
 	\frametitle{Context Free Features}
 	
-	\begin{itemize}
-		\item Interpretations
-		\item Population
-		\item Altnames
-		\item Dateline
-		\item Locallex
-	\end{itemize}
+	\begin{columns}
+		\begin{column}{.3\textwidth}
+				\begin{itemize}
+				\item Interpretations
+				\item Population
+				\item Altnames
+				\item Dateline
+				\item Locallex
+			\end{itemize}
+		\end{column}
+		\begin{column}{.7\textwidth}
+			\pause
+			\begin{figure}
+				\includegraphics[width=\textwidth]{dateline.png} 
+				\caption{Dateline toponym example, \textit{Source: nytimes Feb 4, 2017.}}
+			\end{figure}
+		\end{column}
+		
+	\end{columns}
+	
+	\vfill
 } % END OF FRAME
 %----------------------------------------
 
 \subsection{Adaptive Context Features}
 \frame{
-	\frametitle{Adaptive Context Features}
+	\frametitle{Adaptive \textbf{Context} Features}
 	
-	\begin{block}{Context of a toponym t}
-	means that other toponyms in the window around toponym t
+	\begin{block}{\textbf{Context} of a toponym t}
+	the other toponyms in the window around toponym t
 	\end{block}
 
 	\begin{overprint}
@@ -447,9 +506,9 @@ Saarland Informatics Campus\\
 %----------------------------------------
 
 \frame{
-	\frametitle{Adaptive Context Features}
+	\frametitle{\textbf{Adaptive} Context Features}
 	
-	\begin{block}{Adaptive}
+	\begin{block}{\textbf{Adaptive}}
 		means that the window's breadth $w_b$ and depth $w_d$ can be changed
 	\end{block}
 	
@@ -655,10 +714,13 @@ Saarland Informatics Campus\\
 		\begin{tabular}{c l l}
 		$\checkmark$ & (Perth, Scotland) $\xrightarrow{distance}$ (Birmingham, UK) & 338.8 miles\\
 		{} & (Perth, Scotland) $\xrightarrow{distance}$ (Birmingham, Michigan) & 3496.2 miles \\
+		\pause
 		$\checkmark$ & (Perth, Scotland) $\xrightarrow{distance}$ (London, UK) & 450.6 miles \\
 		{} & (Perth, Scotland) $\xrightarrow{distance}$ (London, Ontario) & 3403.7 miles \\
 		\end{tabular} \\
 		
+		... \\
+		\pause
 		prox score(Perth, Scotland) = average(338.8, 450.6) = 394.7\footnotemark miles \\
 				
 	\only<2->{\footnotetext[1]{The authors used geometric median for average}}
@@ -711,8 +773,8 @@ Saarland Informatics Campus\\
 	\begin{overprint}
 		\vspace*{-3cm}
 		\begin{block}{\centering Proximity features}
-			\centering \textbf{So the correct interp. for Perth, in this context, using Prox feature only would be (Perth, Scotland)!} \\
-			\centering \textbf{as prox score(Perth, Scotland) \textless prox score(Perth, Australia)}
+			\centering So the \textbf{correct interp.} for Perth, in this context, using Prox feature only would be \textbf{(Perth, Scotland)}! \\
+			\centering as prox score(Perth, Scotland) \textless prox score(Perth, Australia)
 		\end{block}
 	\end{overprint}
 	
@@ -792,7 +854,7 @@ Saarland Informatics Campus\\
 		\hline
 		1 & Minnesota, USA & Victoria, Australia & Georgia, USA\\
 		2 & Michigan, USA & New York, USA & Minnesota, USA\\
-		2 & {} & Minnesota, USA & {}\\
+		3 & {} & Minnesota, USA & {}\\
 	\end{tabular} \\
 	
 	... \\
@@ -805,14 +867,74 @@ Saarland Informatics Campus\\
 		{} & $(t, l_t)$ & Score & common sibling levels. \\
 		\hline
 		1 & (Rochester, Victoria Australia) & 0 & -\\
+		\pause
 		2 & (Rochester, New York USA) & 4 & 4 x USA\\
-		2 & (Rochester, Minnesota USA) & 6 & 4 x USA, 2 x Minnesota\\
+		\pause
+		3 & (Rochester, Minnesota USA) & 6 & 4 x USA, 2 x Minnesota\\
 	\end{tabular}
+	
+	\pause
+	
+	\begin{overprint}
+		\vspace*{-2.5cm}
+		\begin{block}{\centering Sibling features}
+			\centering \textbf{correct interp.} = \textbf{(Rochester, Minenesota)}! \\
+			\centering as sibling score(Rochester, Minnesota) is \textbf{largest} among all toponym/interp pairs!
+		\end{block}
+	\end{overprint}
 	
 	\vfill
 } % END OF FRAME
 %----------------------------------------
 
+\subsection{interpretations order}
+\frame{
+	\frametitle{interpretations order}
+	
+	``... Bloomington, Rochester and Duluth. ..."
+	
+	\pause
+	
+	Assuming \textbf{$w_d$=2}, 
+	
+	\begin{tabular}{ c| c | c | c}
+		
+		{} & Bloomington & \textbf{Rochester} & Duluth \\
+		\hline
+		1 & Minnesota, USA & Victoria, Australia & Georgia, USA\\
+		2 & Michigan, USA & New York, USA & Minnesota, USA\\
+	\end{tabular} \\
+	
+	... \\
+	\pause
+	
+	
+	\textbf{The sibling feature scores for toponym/interp pairs will be}
+	\begin{tabular}{ c| c | c | c}
+		
+		{} & $(t, l_t)$ & Score & common sibling levels. \\
+		\hline
+		1 & (Rochester, Victoria Australia) & 0 & -\\
+		\pause
+		2 & (Rochester, New York USA) & 4 & 4 x USA\\
+	\end{tabular}
+
+	\vfill
+} % END OF FRAME
+%----------------------------------------
+
+\subsection{feature propagation}
+\frame{
+	\frametitle{feature propagation}
+	
+	\begin{itemize}
+		\item toponym t considered once in window
+		\item feature propagation - after toponym resolution
+	\end{itemize}
+	
+	\vfill
+} % END OF FRAME
+%----------------------------------------
 \subsection{Evaluation measures}
 \frame{
 	\frametitle{Evaluation measures}
@@ -828,6 +950,8 @@ Saarland Informatics Campus\\
 	Precision = $\frac{\text{no. of correctly resolved toponyms}}{\text{no. of total resolved toponyms}}$ \\
 	...\\
 	Recall = $\frac{\text{no. of correctly resolved toponyms}}{\text{no. of true toponyms}}$
+
+	\vfill
 } % END OF FRAME
 %----------------------------------------
 
@@ -917,7 +1041,7 @@ Saarland Informatics Campus\\
 	...\\
 	\pause
 	
-	\textbf{can be done by assigning geographic focus to documents}
+	can be done by assigning \textbf{geographic focus} to documents
 	
 } % END OF FRAME
 
@@ -936,8 +1060,8 @@ Saarland Informatics Campus\\
 	\bigskip
 	\begin{itemize}
 		\item crawls around 50,000 news article every day
-		\item cluster them on content and location
-		\item associate each cluster to its geographic focus
+		\item cluster them on content and \textbf{location}
+		\item associate each cluster to its \textbf{geographic focus}
 		\item stories appear as the map as the map is zoomed in/out
 	\end{itemize}
 	
@@ -997,12 +1121,26 @@ Saarland Informatics Campus\\
 
 
 %----------------------------------------
-
+\subsection{Questions}
 \frame{\frametitle{Questions}
 
 \begin{center}\begin{LARGE}\textbf{Questions?}\end{LARGE}\end{center}
 
 
+}
+
+\subsection{References}
+\frame{
+	\frametitle{References}
+
+	\begin{itemize}
+		\item  Michael D. Lieberman and Hanan Samet. Adaptive Context Features for Toponym Resolution in Streaming News. In In SIGIR'12: Proceedings of the 35th International ACM SIGIR Conference on Research and Development in Information Retrieval, pages 731$-$740, 2012.
+		\item Jochen L Leidner. Toponym Resolution in Text : Annotation, Evaluation and Applications of Spatial Grounding of Place Names. Universal Press, Boca Raton, FL, USA, 2008.
+		\item Michael D Lieberman, Hanan Samet, and Jagan Sankaranarayanan. Geotagging with local lexicons to build indexes for textually-specified
+		spatial data. In 2010 IEEE 26th International Conference on Data Engineering (ICDE 2010), pages 201$-$212. IEEE, 2010.
+	\end{itemize}
+
+\vfill
 }
 
 \newcommand{\backupbegin}{
