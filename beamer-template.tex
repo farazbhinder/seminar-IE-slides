@@ -13,6 +13,10 @@
 \usepackage{beamerthemesplit}
 \usetheme[compress]{MPIjast}
 
+% for recurring outline - if check
+% source: http://tex.stackexchange.com/a/26039
+\usepackage{etoolbox}
+
 
 \title[Toponym Resolution and Adaptive Context Features]{Toponym Resolution and Adaptive Context Features}
 \subtitle{}
@@ -28,22 +32,31 @@ Saarland Informatics Campus\\
 % have this if you'd like a recurring outline
 \AtBeginSection[]  % "Beamer, do the following at the start of every section"
 {
-\begin{frame}<beamer> 
-\frametitle{Outline} % make a frame titled "Outline"
-\tableofcontents[currentsection,hideallsubsections]  % show TOC and highlight current section
-\end{frame}
-}
+	\ifnumcomp{\value{section}}{=}{1}{}
+	{
+		\begin{frame}[t]
+			\frametitle{Outline}
+			\tableofcontents[sectionstyle=show/shaded,hideallsubsections]
+		\end{frame}
+	}
+} 
+{
+%\begin{frame}<beamer> 
+%\frametitle{Outline} % make a frame titled "Outline"
+%\tableofcontents[currentsection,hideallsubsections]  % show TOC and highlight current section
+%\end{frame}
+%}
 %----------------------------------------
 
 
 \begin{document}
 \frame[plain]{\titlepage}
-\frame{\frametitle{Outline}\tableofcontents[hideallsubsections]}
+%\frame{\frametitle{Outline}\tableofcontents[hideallsubsections]}
 
 %========================================
 %========================================
 
-\section[Introduction]{Introduction}
+\section[Motivation]{Motivation}
 
 %###############################################
 
@@ -52,7 +65,7 @@ Saarland Informatics Campus\\
 %----------------------------------------
 
 
-\subsection{Terminology}
+%\subsection{Terminology}
 %
 %\frame{
 %\frametitle{Terminology}
@@ -78,13 +91,14 @@ Saarland Informatics Campus\\
 	Words in a document text that correspond to \textbf{location names} are called toponyms.
 \end{block}
 
-\begin{block}{refer to a \textbf{populated place}, such as: }
-	\begin{itemize}
-		\item[(1)] Cities/Towns
-		\item[(2)] States/Provinces
-		\item[(3)] Countries
-	\end{itemize}
-\end{block}
+refer to a \textbf{populated place}, such as:\\
+\begin{itemize}
+	\item Cities/Towns
+	\item States/Provinces
+	\item Countries
+\end{itemize}
+
+
 } % END OF FRAME
 
 %----------------------------------------
@@ -132,12 +146,11 @@ Saarland Informatics Campus\\
 	understanding the {geographic content} of a text document.
 \end{block}
 
-\begin{block}{is a two step process: }
-	\begin{itemize}
-		\item[(1)] detecting the toponyms
-		\item[(2)] grounding the detected toponyms
-	\end{itemize}
-\end{block}
+is a two step process:\\
+\begin{itemize}
+	\item[(1)] detecting the toponyms
+	\item[(2)] grounding the detected toponyms
+\end{itemize}
 
 \vfill
 } % END OF FRAME
@@ -150,11 +163,11 @@ Saarland Informatics Campus\\
 	``France won the world cup in 1998."
 \end{block}
 \pause
-\begin{block}{step 1: detecting the toponyms}
+\begin{block}{step 1: detecting the toponyms = Toponym recognition}
 	``\underline{France} won the world cup in 1998."
 \end{block}
 \pause
-\begin{block}{step 2: grounding the detected toponyms}
+\begin{block}{step 2: grounding the detected toponyms = Toponym resolution}
 ``\underline{France} (lat 46, long 2) won the world cup in 1998."
 \end{block}
 
@@ -163,42 +176,42 @@ Saarland Informatics Campus\\
 
 %----------------------------------------
 
-\frame{
-	\frametitle{Geotagging - the two steps defined}
-	
-	\begin{itemize}
-		\item Toponym recognition (Geoparsing)
-		\item Toponym resolution (Geocoding)
-	\end{itemize}
-	 
-	 
-	\begin{block}{Toponym recognition}
-		\textbf{detect} all the \textbf{toponyms} (location
-		names) in text.
-	\end{block}
-	\begin{block}{Toponym resolution}
-		\textbf{assign} the \textbf{correct lat/long value} to \textbf{toponyms}.
-	\end{block}
-	
-	\vfill
-} % END OF FRAME
-
-%----------------------------------------
-
-\frame{
-	\frametitle{Geotagging - example}
-	\begin{block}{sentence }
-		``France won the world cup in 1998."
-	\end{block}
-	\begin{block}{step 1: detecting the toponyms = Toponym recognition}
-		``\underline{France} won the world cup in 1998."
-	\end{block}
-	\begin{block}{step 2: grounding the detected toponyms = Toponym resolution}
-		``\underline{France} (lat 46, long 2) won the world cup in 1998."
-	\end{block}
-	
-	\vfill
-} % END OF FRAME
+%\frame{
+%	\frametitle{Geotagging - the two steps defined}
+%	
+%	\begin{itemize}
+%		\item Toponym recognition (Geoparsing)
+%		\item Toponym resolution (Geocoding)
+%	\end{itemize}
+%	 
+%	 
+%	\begin{block}{Toponym recognition}
+%		\textbf{detect} all the \textbf{toponyms} (location
+%		names) in text.
+%	\end{block}
+%	\begin{block}{Toponym resolution}
+%		\textbf{assign} the \textbf{correct lat/long value} to \textbf{toponyms}.
+%	\end{block}
+%	
+%	\vfill
+%} % END OF FRAME
+%
+%%----------------------------------------
+%
+%\frame{
+%	\frametitle{Geotagging - example}
+%	\begin{block}{sentence }
+%		``France won the world cup in 1998."
+%	\end{block}
+%	\begin{block}{step 1: detecting the toponyms = Toponym recognition}
+%		``\underline{France} won the world cup in 1998."
+%	\end{block}
+%	\begin{block}{step 2: grounding the detected toponyms = Toponym resolution}
+%		``\underline{France} (lat 46, long 2) won the world cup in 1998."
+%	\end{block}
+%	
+%	\vfill
+%} % END OF FRAME
 
 %========================================
 
@@ -256,13 +269,12 @@ Saarland Informatics Campus\\
 		Gazeteers are long lists of geographic locations with respective features such as lat/long values and usually type of location (city, state, country etc).
 	\end{block}
 
-	\begin{block}{some examples of online available gazeteers}
-		\begin{itemize}
-			\item GeoNames
-			\item World Factbook by CIA
-			\item Getty Thesaurus of Geographic Names
-		\end{itemize}	
-	\end{block}
+	some examples of online available gazeteers
+	\begin{itemize}
+		\item GeoNames
+		\item World Factbook by CIA
+		\item Getty Thesaurus of Geographic Names
+	\end{itemize}
 	
 } % END OF FRAME
 
@@ -290,7 +302,7 @@ Saarland Informatics Campus\\
 %========================================
 %========================================
 
-\section[Motivation]{Motivation}
+%\section[Motivation1]{Motivation1}
 
 
 \subsection{Geographic content in queries}
@@ -324,10 +336,12 @@ Saarland Informatics Campus\\
 	\begin{tabular}{|c|c|} \hline
 		\textbf{NERD}      & \textbf{Geotagging} \\ 
 		\hline
-		\uncover<2->{named entities} & \uncover<2->{only toponyms} \\
-		\uncover<3->{knowledge bases} & \uncover<3->{gazeteers} \\
-		\uncover<4->{ground = link} & \uncover<4->{ground = lat/long} \\
-		\uncover<5->{knowledgebases are general}  & \uncover<5->{gazeteers are specific} \\ 
+		\uncover<2->{NER more general} & \uncover<2->{specific to locations} \\
+		\uncover<3->{named entities} & \uncover<3->{only toponyms} \\
+		\uncover<4->{low recognition recall} & \uncover<4->{higher recognition recall} \\
+		\uncover<5->{knowledge bases} & \uncover<5->{gazeteers} \\
+		\uncover<6->{ground = link} & \uncover<6->{ground = lat/long} \\
+		\uncover<7->{knowledgebases are general}  & \uncover<7->{gazeteers are specific} \\ 
 		\hline
 	\end{tabular}
 \end{table}
@@ -411,11 +425,13 @@ Saarland Informatics Campus\\
 	\frametitle{Toponym recognition procedure}
 	
 	\begin{itemize}
+		\item multi-faceted recognition
 		\item tokenization
 		\item lookups
-		\item statistical NLP tools
+		\item statistical NLP tools (NER)
 		\item POS tagging
-	\end{itemize}
+		\item has high recall!
+\end{itemize}
 } % END OF FRAME
 %----------------------------------------
 
@@ -428,6 +444,7 @@ Saarland Informatics Campus\\
 		\item identify each toponym/interpretation pair as correct or incorrect
 		\item used decision trees
 		\item can get confidence score for each decision
+		\item restores precision!
 	\end{itemize}
 \vfill
 } % END OF FRAME
@@ -825,7 +842,7 @@ Saarland Informatics Campus\\
 	\frametitle{Sibling Features idea}
 	
 	\begin{block}{\centering Sibling features}
-		\centering  \textbf{play a role in determining correct interpretation for cities that are geographically far away but have common parent such as state or country}
+		\centering  determine \textbf{correct interpretation} for toponyms that are \textbf{geographically not proximate} but have \textbf{common parent} such as state or country
 	\end{block}
 	
 	\pause
@@ -923,17 +940,17 @@ Saarland Informatics Campus\\
 } % END OF FRAME
 %----------------------------------------
 
-\subsection{feature propagation}
-\frame{
-	\frametitle{feature propagation}
-	
-	\begin{itemize}
-		\item toponym t considered once in window
-		\item feature propagation - after toponym resolution
-	\end{itemize}
-	
-	\vfill
-} % END OF FRAME
+%\subsection{feature propagation}
+%\frame{
+%	\frametitle{feature propagation}
+%	
+%	\begin{itemize}
+%		\item toponym t considered once in window
+%		\item feature propagation - after toponym resolution
+%	\end{itemize}
+%	
+%	\vfill
+%} % END OF FRAME
 %----------------------------------------
 \subsection{Evaluation measures}
 \frame{
@@ -990,16 +1007,16 @@ Saarland Informatics Campus\\
 
 %----------------------------------------
 
-\subsection{Geographic visualization and browsing}
-\frame{
-	\frametitle{Geographic visualization and browsing}
-	
-	\begin{itemize}
-		\item thematic maps
-		\item geographic anchoring of encyclopedia articles
-	\end{itemize}
-		
-} % END OF FRAME
+%\subsection{Geographic visualization and browsing}
+%\frame{
+%	\frametitle{Geographic visualization and browsing}
+%	
+%	\begin{itemize}
+%		\item thematic maps
+%		\item geographic anchoring of encyclopedia articles
+%	\end{itemize}
+%		
+%} % END OF FRAME
 
 %----------------------------------------
 
@@ -1007,7 +1024,7 @@ Saarland Informatics Campus\\
 \frame{
 	\frametitle{Question answering}
 	
-	\textbf{trend in search engines to answer some questions directly, instead of returning search results} \\
+	trend in search engines to \textbf{answer some queries directly}, instead of returning search results \\
 	
 	\pause
 	
@@ -1030,7 +1047,7 @@ Saarland Informatics Campus\\
 \frame{
 	\frametitle{Improving search results - for geographic queries}
 	
-	\textbf{return relevant documents which would not be returned using keyword based search} \\
+	return relevant documents which would not be returned using keyword based search only \\
 	...\\
 	
 	\pause
@@ -1054,8 +1071,7 @@ Saarland Informatics Campus\\
 	
 	
 	e.g. system \textbf{NewsStand System: }	
-	users can choose a region of interest and read news and articles relevant to it\\
-	or browse news geographically on world map in  an interactive manner
+	users can \underline{browse news geographically on world map} in  an \textbf{interactive} manner
 	\pause
 	\bigskip
 	\begin{itemize}
