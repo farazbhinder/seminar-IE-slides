@@ -215,24 +215,24 @@ is a two step process:\\
 
 %========================================
 
+%\subsection{Difficulty in Geotagging}
+%
+%
+%\frame{
+%\frametitle{Difficulty in Geotagging}
+%
+%\begin{block}{in toponym recognition}
+%	need to understand natural language in order to detect toponyms accurately.
+%\end{block}
+%
+%\begin{block}{in toponym resolution}
+%	need to understand document's content to ground a toponym to its correct lat/long value \textbf{(correct interpretation)}.
+%\end{block}
+%
+%
+%} % END OF FRAME
+
 \subsection{Difficulty in Geotagging}
-
-
-\frame{
-\frametitle{Difficulty in Geotagging}
-
-\begin{block}{in toponym recognition}
-	need to understand natural language in order to detect toponyms accurately.
-\end{block}
-
-\begin{block}{in toponym resolution}
-	need to understand document's content to ground a toponym to its correct lat/long value \textbf{(correct interpretation)}.
-\end{block}
-
-
-} % END OF FRAME
-
-\subsection{Difficulty in Geotagging - example}
 
 
 \frame{
@@ -265,15 +265,17 @@ is a two step process:\\
 \frame{
 	\frametitle{Gazeteers}
 	
-	\begin{block}{Gazeteers}
-		Gazeteers are long lists of geographic locations with respective features such as lat/long values and usually type of location (city, state, country etc).
+	\begin{block}{Gazeteer}
+		look up table for looking up toponyms and getting their features
 	\end{block}
 
-	some examples of online available gazeteers
+	get features of toponyms interpretations:
 	\begin{itemize}
-		\item GeoNames
-		\item World Factbook by CIA
-		\item Getty Thesaurus of Geographic Names
+		\item population
+		\item no. of interpretations
+		\item alternative names
+		\item location type
+		\item \textbf{lat/long value} for each interpretation
 	\end{itemize}
 	
 } % END OF FRAME
@@ -283,14 +285,11 @@ is a two step process:\\
 \frame{
 	\frametitle{Gazeteers}
 	
-	\begin{block}{useful for}
-		\begin{itemize}
-			\item Toponym recognition (looking up)
-			\item getting features* of toponyms
-		\end{itemize}
-	\end{block}
-	
-	$\ast$ population, no. of interpretations, alternative names, location type, lat/long value of the toponym
+	some examples of online available gazeteers
+	\begin{itemize}
+		\item GeoNames
+		\item World Factbook by CIA
+	\end{itemize}
 	
 	\begin{figure}
 		\includegraphics[width=\textwidth]{geonames.png} 
@@ -339,6 +338,7 @@ is a two step process:\\
 		\uncover<2->{NER more general} & \uncover<2->{specific to locations} \\
 		\uncover<3->{named entities} & \uncover<3->{only toponyms} \\
 		\uncover<4->{low recognition recall} & \uncover<4->{higher recognition recall} \\
+		\hline
 		\uncover<5->{knowledge bases} & \uncover<5->{gazeteers} \\
 		\uncover<6->{ground = link} & \uncover<6->{ground = lat/long} \\
 		\uncover<7->{knowledgebases are general}  & \uncover<7->{gazeteers are specific} \\ 
@@ -507,7 +507,7 @@ is a two step process:\\
 	\frametitle{Adaptive \textbf{Context} Features}
 	
 	\begin{block}{\textbf{Context} of a toponym t}
-	the other toponyms in the window around toponym t
+	the other toponyms in the \textbf{window around toponym t}
 	\end{block}
 
 	\begin{overprint}
@@ -526,7 +526,7 @@ is a two step process:\\
 	\frametitle{\textbf{Adaptive} Context Features}
 	
 	\begin{block}{\textbf{Adaptive}}
-		means that the window's breadth $w_b$ and depth $w_d$ can be changed
+		the window's \textbf{breadth $w_b$} and \textbf{depth $w_d$} can be changed
 	\end{block}
 	
 	%\begin{block}{Depth $w_d$ of window}
@@ -672,16 +672,10 @@ is a two step process:\\
 		
 		\onslide<16>
 		\begin{figure}
-			\includegraphics[width=\textwidth]{adaptive-proximity-k3.png} 
+			\includegraphics[width=\textwidth]{adaptive-proximity-k2.png} 
 			\caption{from Lieberman and Samet, \textit{Source: URL}}
 		\end{figure}
-		
-		\onslide<17>
-		\begin{figure}
-			\includegraphics[width=\textwidth]{adaptive-proximity-k3.png} 
-			\caption{from Lieberman and Samet, \textit{Source: URL}}
-		\end{figure}
-		
+				
 		\vspace*{-5cm}
 		\begin{block}{\centering Proximity features}
 			\centering  \textbf{the interpretation $l_t$, for which proximity score is lowest, is the chosen as the correct interpretation of $t$}
@@ -845,11 +839,11 @@ is a two step process:\\
 		\centering  determine \textbf{correct interpretation} for toponyms that are \textbf{geographically not proximate} but have \textbf{common parent} such as state or country
 	\end{block}
 	
-	\pause
+%	\pause
 	
-	\begin{block}{\centering Sibling features}
-		\centering  \textbf{can correctly capture relationships which may be considered geographically distant}
-	\end{block}
+%	\begin{block}{\centering Sibling features}
+%		\centering  \textbf{can correctly capture relationships which may be considered geographically distant}
+%	\end{block}
 	
 	\vfill
 } % END OF FRAME
@@ -1123,14 +1117,15 @@ is a two step process:\\
 	\frametitle{Conclusion}
 	
 	\begin{itemize}
-		\item Geotagging an important process which allows to
+		\item Toponyms
+		\item Geotagging
 		\begin{itemize}
-			\item find toponyms (Recognition)
-			\item resolve/ground them (Resolution)
+			\item Toponym recognition
+			\item Toponym resolution
 		\end{itemize}
-		\item existing NER techniques can help in recognition
-		\item many features can be used to help in resolution
-		\item geotagging has many applications/usecases
+		\item Context free features
+		\item Adaptive context features
+		\item Geotagging has many applications/usecases
 	\end{itemize}
 		
 } % END OF FRAME
